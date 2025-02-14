@@ -402,46 +402,43 @@
       }
 
       /* Projects */
-      .project-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    height: 200px;
+      .project-list ul {
+    list-style: none;
+    padding: 0;
+  }
 
-    margin-top: 20px;
-}
-
-.project {
+  .project-list li {
+    cursor: pointer;
+    padding: 10px;
     background: #252525;
-    padding: 15px;
-    border-radius: 10px;
-    width: 300px;
+    color: #ff4c60;
+    margin: 5px 0;
+    border-radius: 5px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(255, 76, 96, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+    transition: 0.3s;
+  }
 
-.project:hover {
-    transform: scale(1.05);
+  .project-list li:hover {
+    background: #ff4c60;
+    color: white;
+  }
+
+  .project-details {
+    margin-top: 20px;
+    padding: 20px;
+    background: #333;
+    border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(255, 76, 96, 0.5);
-}
+    display: none;
+  }
 
-.project h3 {
+  .project-details h3 {
     color: #ff4c60;
-    font-size: 22px;
-    margin-bottom: 10px;
-}
+  }
 
-.project p {
-    font-size: 16px;
+  .project-details p {
     color: #e0e0e0;
-    margin-bottom: 8px;
-}
-
-.project strong {
-    color: #ff4c60;
-}
+  }
 
 
 /* resume button */
@@ -535,27 +532,17 @@
         new food places, watching web series, and playing cricket.
       </p>
     </div>
-    <div id="projects" class="section"><h2>My Projects</h2>
-<div class="project-container">
-    <div class="project">
-        <h3>Mini Linux Shell</h3>
-        <p><strong>(OS Project | Oct 2022 - Nov 2022)</strong></p>
-        <p>Implemented a Mini Linux Shell in C with a simple file system. Supports md, rd, ls, cd, stats, etc., for directories and create, remove, display, etc., for files.</p>
-        <p><strong>Guide:</strong> Prof. Sanjay Srivastava</p>
-    </div>
-    <div class="project">
-        <h3>Page Rank in Parallel Processing</h3>
-        <p><strong>(Big Data Project | Nov 2023 - Dec 2023)</strong></p>
-        <p>Utilized Python frameworks like MapReduce and Spark for scalable computations. Implemented and analyzed the PageRank algorithm using Markov chains.</p>
-        <p><strong>Guide:</strong> Prof. P.M. Jat</p>
-    </div>
-    <div class="project">
-        <h3>Fl-Ai-ppy Bird</h3>
-        <p><strong>(Reinforcement Learning | May 2024 - June 2024)</strong></p>
-        <p>Developed an AI bot to play Flappy Bird using Q-learning. Self-trained using Reinforcement Learning (RL) concepts of rewards and punishments.</p>
-        <p><strong>Guide:</strong> Prof. Abhishek Jindal</p>
-    </div>
-</div>
+    <div id="projects" class="section">
+        <h2>My Projects</h2>
+        <div class="project-list">
+          <ul id="project-names">
+            <!-- Project names will be inserted dynamically -->
+          </ul>
+        </div>
+        <div id="project-details" class="project-details" style="display: none;">
+          <!-- Project details will be inserted dynamically -->
+        </div>
+      </div>
 
     </div>
     <div id="skills" class="section">
@@ -612,6 +599,53 @@
     <footer><p>© 2025 Sarvagna Khatri. All Rights Reserved.</p></footer>
 
     <script>
+        
+
+        document.addEventListener("DOMContentLoaded", () => {
+    fetch('projecs.json')
+      .then(response => response.json()) // returns the promise of type any
+      .then(data => {
+        const projects = data.projects; // Accessing the correct key
+        const projectList = document.getElementById("project-names");
+        const projectDetails = document.getElementById("project-details");
+
+        if (!projects || projects.length === 0) {
+          projectList.innerHTML = "<li>No projects available</li>";
+          return;
+        }
+
+        projects.forEach((project, index) => {
+          let listItem = document.createElement("li");
+          listItem.textContent = project.title;
+          listItem.classList.add("project-name");
+          listItem.onclick = () => {
+            showProjectDetails(project);
+          };
+          projectList.appendChild(listItem);
+        });
+
+        function showProjectDetails(project) {
+          projectDetails.innerHTML = `
+            <h3>${project.title}</h3>
+            <p><strong>Category:</strong> ${project.category}</p>
+            <p><strong>Duration:</strong> ${project.duration}</p>
+            <p>${project.description}</p>
+            <p><strong>Guide:</strong> ${project.guide}</p>
+          `;
+          projectDetails.style.display = "block";
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching projects:', error);
+        document.getElementById("project-names").innerHTML = "<li>Failed to load projects</li>";
+      });
+  });
+
+
+
+
+  
+
       function showSection(id) {
         document
           .querySelectorAll(".home, .section")
