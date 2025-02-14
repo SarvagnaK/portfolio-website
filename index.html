@@ -602,7 +602,7 @@
         
 
         document.addEventListener("DOMContentLoaded", () => {
-    fetch('projecs.json')
+    fetch('projects.json')
       .then(response => response.json()) // returns the promise of type any
       .then(data => {
         const projects = data.projects; // Accessing the correct key
