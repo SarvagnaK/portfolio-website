@@ -1,0 +1,26 @@
+{
+    "projects": [
+      {
+        "title": "Mini Linux Shell",
+        "category": "OS Project",
+        "duration": "October 2022 - November 2022",
+        "description": "Implemented Mini Linux Shell and simple File System in C. Executed commands like md/rd/ls/cd/stats on directories and create/remove/display commands on files.",
+        "guide": "Prof. Sanjay Srivastava"
+      },
+      {
+        "title": "Page Rank in Parallel Processing",
+        "category": "Big Data Project",
+        "duration": "November 2023 - December 2023",
+        "description": "Used Python frameworks such as MapReduce and Spark for large-scale computations. Explored Markov chains' connection with the PageRank algorithm and provided a comprehensive implementation with insights into its dynamic evolution.",
+        "guide": "Prof. P.M. Jat"
+      },
+      {
+        "title": "Fl-Ai-ppy Bird",
+        "category": "Reinforcement Learning Project",
+        "duration": "May 2024 - June 2024",
+        "description": "Developed an AI bot to play Flappy Bird using Q-learning. Built using FlapPY Bird as a base, incorporating reinforcement learning concepts of rewards and punishments.",
+        "guide": "Prof. Abhishek Jindal"
+      }
+    ]
+  }
+  
